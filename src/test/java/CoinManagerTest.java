@@ -21,7 +21,8 @@ public class CoinManagerTest {
     public void coinValue() {
         Map<Coin, Integer> valueMap = new HashMap<>();
         Map<Coin, Integer> coinsHolding = new HashMap<>();
-        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
         assertEquals(10, coinManager.getValue(Coin.DIME));
         assertEquals(5, coinManager.getValue(Coin.NICKEL));
         assertEquals(25, coinManager.getValue(Coin.QUARTER));
@@ -31,7 +32,8 @@ public class CoinManagerTest {
     public void coinsHolding() {
         Map<Coin, Integer> valueMap = new HashMap<>();
         Map<Coin, Integer> coinsHolding = new HashMap<>();
-        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
         coinManager.receiveCoin(Coin.QUARTER);
         int holding = coinsHolding.get(Coin.QUARTER);
         assertEquals(1, holding);
@@ -41,7 +43,8 @@ public class CoinManagerTest {
     public void holdsMultipleCoins() {
         Map<Coin, Integer> valueMap = new HashMap<>();
         Map<Coin, Integer> coinsHolding = new HashMap<>();
-        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
         coinManager.receiveCoin(Coin.QUARTER);
         coinManager.receiveCoin(Coin.QUARTER);
         int holding = coinsHolding.get(Coin.QUARTER);
@@ -52,10 +55,22 @@ public class CoinManagerTest {
     public void currentSum() {
         Map<Coin, Integer> valueMap = new HashMap<>();
         Map<Coin, Integer> coinsHolding = new HashMap<>();
-        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
         coinManager.receiveCoin(Coin.QUARTER);
         coinManager.receiveCoin(Coin.QUARTER);
         coinManager.receiveCoin(Coin.PENNY);
         assertEquals(50, coinManager.currentSum());
+    }
+
+    @Test
+    public void coinReturn() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
+        coinManager.receiveCoin(Coin.PENNY);
+        int inReturn = coinReturn.get(Coin.PENNY);
+        assertEquals(1, inReturn);
     }
 }
