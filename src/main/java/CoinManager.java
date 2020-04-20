@@ -22,6 +22,15 @@ public class CoinManager {
     }
 
     public void receiveCoin(Coin coin) {
-        coinsHolding.put(coin,coinsHolding.getOrDefault(coin,0)+1);
+        if (isValid(coin))
+            coinsHolding.put(coin, coinsHolding.getOrDefault(coin, 0) + 1);
+    }
+
+    public int currentSum() {
+        int sum = 0;
+        for (Coin coin : coinsHolding.keySet()) {
+            sum += getValue(coin) * coinsHolding.get(coin);
+        }
+        return sum;
     }
 }

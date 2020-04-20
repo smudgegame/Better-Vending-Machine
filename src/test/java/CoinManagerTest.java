@@ -48,5 +48,14 @@ public class CoinManagerTest {
         assertEquals(2, holding);
     }
 
-
+    @Test
+    public void currentSum() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
+        coinManager.receiveCoin(Coin.QUARTER);
+        coinManager.receiveCoin(Coin.QUARTER);
+        coinManager.receiveCoin(Coin.PENNY);
+        assertEquals(50, coinManager.currentSum());
+    }
 }
