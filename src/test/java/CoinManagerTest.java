@@ -20,9 +20,20 @@ public class CoinManagerTest {
     @Test
     public void coinValue() {
         Map<Coin, Integer> valueMap = new HashMap<>();
-        CoinManager coinManager = new CoinManager(valueMap);
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
         assertEquals(10, coinManager.getValue(Coin.DIME));
         assertEquals(5, coinManager.getValue(Coin.NICKEL));
         assertEquals(25, coinManager.getValue(Coin.QUARTER));
+    }
+
+    @Test
+    public void coinsHolding() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
+        coinManager.receiveCoin(Coin.QUARTER);
+        int holding = coinsHolding.get(Coin.QUARTER);
+        assertEquals(1, holding);
     }
 }
