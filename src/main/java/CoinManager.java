@@ -22,6 +22,6 @@ public class CoinManager {
     }
 
     public void receiveCoin(Coin coin) {
-        coinsHolding.put(coin,1);
+        coinsHolding.put(coin,coinsHolding.getOrDefault(coin,0)+1);
     }
 }

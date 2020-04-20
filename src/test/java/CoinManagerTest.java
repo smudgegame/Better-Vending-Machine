@@ -36,4 +36,17 @@ public class CoinManagerTest {
         int holding = coinsHolding.get(Coin.QUARTER);
         assertEquals(1, holding);
     }
+
+    @Test
+    public void holdsMultipleCoins() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding);
+        coinManager.receiveCoin(Coin.QUARTER);
+        coinManager.receiveCoin(Coin.QUARTER);
+        int holding = coinsHolding.get(Coin.QUARTER);
+        assertEquals(2, holding);
+    }
+
+
 }
