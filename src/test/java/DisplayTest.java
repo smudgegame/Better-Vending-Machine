@@ -27,4 +27,15 @@ public class DisplayTest {
         Display display = new Display(coinManager);
         assertEquals("$0.25", display.show());
     }
+
+    @Test
+    public void displayFormat() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
+        coinManager.receiveCoin(Coin.DIME);
+        Display display = new Display(coinManager);
+        assertEquals("$0.10", display.show());
+    }
 }
