@@ -73,4 +73,21 @@ public class CoinManagerTest {
         int inReturn = coinReturn.get(Coin.PENNY);
         assertEquals(1, inReturn);
     }
+
+    @Test
+    public void makeChange() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
+        for (int i = 0; i < 4; i++) coinManager.receiveCoin(Coin.QUARTER);
+        int productPrice = 60;
+        coinManager.makeChange(productPrice);
+        int dimes = coinReturn.getOrDefault(Coin.DIME, 0);
+        int nickels = coinReturn.getOrDefault(Coin.NICKEL, 0);
+        int quarters = coinReturn.getOrDefault(Coin.QUARTER, 0);
+        assertEquals(1, dimes);
+        assertEquals(1, nickels);
+        assertEquals(1, quarters);
+    }
 }

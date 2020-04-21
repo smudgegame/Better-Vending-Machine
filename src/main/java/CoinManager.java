@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class CoinManager {
@@ -37,7 +40,21 @@ public class CoinManager {
         return sum;
     }
 
-    public void toReturn(Coin coin) {
+    private void toReturn(Coin coin) {
         coinReturn.put(coin, coinReturn.getOrDefault(coin, 0) + 1);
+    }
+
+    public void makeChange(int productPrice) {
+        List<Coin> orderedCoins = new ArrayList<>();
+        orderedCoins.add(Coin.QUARTER);
+        orderedCoins.add(Coin.DIME);
+        orderedCoins.add(Coin.NICKEL);
+        int credit = currentSum() - productPrice;
+        for (Coin coin : orderedCoins) {
+            while (credit >= getValue(coin)) {
+                credit -= getValue(coin);
+                toReturn(coin);
+            }
+        }
     }
 }
