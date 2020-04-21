@@ -14,8 +14,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         assertEquals("INSERT COIN", manager.display());
@@ -28,8 +29,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         manager.insertCoin(Coin.QUARTER);
@@ -43,8 +45,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         manager.insertCoin(Coin.DIME);
@@ -58,8 +61,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         manager.selectProduct(Product.COLA);
@@ -73,8 +77,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         for (int i = 0; i < 4; i++) manager.insertCoin(Coin.QUARTER);
@@ -90,8 +95,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         for (int i = 0; i < 4; i++) manager.insertCoin(Coin.QUARTER);
@@ -106,8 +112,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
@@ -127,8 +134,9 @@ public class ManagerTest {
         Map<Coin, Integer> coinReturn = new HashMap<>();
         CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> stock = new HashMap<>();
         Map<Product, Integer> priceMap = new HashMap<>();
-        Inventory inventory = new Inventory(null, priceMap);
+        Inventory inventory = new Inventory(null, priceMap, stock);
 
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
@@ -136,6 +144,6 @@ public class ManagerTest {
         int quarters = coinManager.inReturn(Coin.QUARTER);
         assertEquals(5, quarters);
     }
-
     //TODO need to find a way to reset coinsHolding after return.
+
 }
