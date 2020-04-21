@@ -24,7 +24,7 @@ public class Inventory {
     }
 
     public void stock(Product product, int amount) {
-        currentStock.put(product, currentStock.getOrDefault(product, 0) + 1);
+        currentStock.put(product, currentStock.getOrDefault(product, 0) + amount);
     }
 
     public boolean inStock(Product product) {

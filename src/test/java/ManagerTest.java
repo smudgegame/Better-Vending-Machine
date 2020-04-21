@@ -121,7 +121,7 @@ public class ManagerTest {
 
         Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
-        inventory.stock(Product.COLA, 1);
+        inventory.stock(Product.COLA, 2);
         manager.selectProduct(Product.COLA);
         int quarters = coinManager.inReturn(Coin.QUARTER);
         assertEquals(1, quarters);
@@ -181,5 +181,27 @@ public class ManagerTest {
 
         Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, true);
         assertEquals("EXACT CHANGE ONLY", manager.display());
+    }
+
+    @Test
+    public void requiresExactChange() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
+
+        Map<Product, Integer> stock = new HashMap<>();
+        Map<Product, Integer> priceMap = new HashMap<>();
+        Inventory inventory = new Inventory(null, priceMap, stock);
+
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, true);
+        for (int i = 0; i < 3; i++) manager.insertCoin(Coin.QUARTER);
+        inventory.stock(Product.COLA, 1);
+        manager.selectProduct(Product.COLA);
+        assertEquals("NOT EXACTLY $1.00", manager.display());
+        manager.reset();
+        manager.insertCoin(Coin.QUARTER);
+        manager.selectProduct(Product.COLA);
+        assertEquals("THANK YOU", manager.display());
     }
 }

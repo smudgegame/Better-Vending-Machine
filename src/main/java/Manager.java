@@ -37,6 +37,10 @@ public class Manager {
             case EXACT_CHANGE_ONLY:
                 if (sum == 0) state = "EXACT CHANGE ONLY";
                 else state = format(sum);
+                break;
+            case NOT_EXACT:
+                vendingStateToDefault();
+                state = "NOT EXACTLY " + format(inventory.getPrice());
         }
         return state;
     }
@@ -51,11 +55,16 @@ public class Manager {
         int sum = coinManager.currentSum();
         int price = inventory.getPrice();
         if (inventory.inStock(product)) {
-            if (sum >= price) {
-                dispensedProduct = product;
-                vendingState = VendingState.PURCHASE;
-                coinManager.makeChange(price);
-            } else vendingState = VendingState.NOT_ENOUGH_MONEY;
+            if (exactChange) {
+                if (sum == price) {
+                    makeSale(product);
+                } else vendingState = VendingState.NOT_EXACT;
+            } else {
+                if (sum >= price) {
+                    makeSale(product);
+                    coinManager.makeChange(price);
+                } else vendingState = VendingState.NOT_ENOUGH_MONEY;
+            }
         } else vendingState = VendingState.SOLD_OUT;
     }
 
@@ -79,5 +88,11 @@ public class Manager {
         }
     }
 
+    private void makeSale(Product product) {
+        dispensedProduct = product;
+        inventory.remove(product);
+        inventory.setProduct(null);
+        vendingState = VendingState.PURCHASE;
+    }
 
 }
