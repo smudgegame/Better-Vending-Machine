@@ -1,4 +1,4 @@
 public enum VendingState {
-    IDLE, NOT_ENOUGH_MONEY, VENDING;
+    IDLE, NOT_ENOUGH_MONEY, VENDING, PURCHASE;
 
 }

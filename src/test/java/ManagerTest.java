@@ -65,4 +65,21 @@ public class ManagerTest {
         manager.selectProduct(Product.COLA);
         assertEquals("PRICE $1.00", manager.display());
     }
+
+    @Test
+    public void makePurchase() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
+
+        Map<Product, Integer> priceMap = new HashMap<>();
+        Inventory inventory = new Inventory(null, priceMap);
+
+        Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
+        for (int i = 0; i < 4; i++) manager.insertCoin(Coin.QUARTER);
+        manager.selectProduct(Product.COLA);
+        assertEquals("THANK YOU", manager.display());
+        assertEquals("INSERT COIN", manager.display());
+    }
 }

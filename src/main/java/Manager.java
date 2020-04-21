@@ -21,7 +21,12 @@ public class Manager {
                 state = format(sum);
                 break;
             case NOT_ENOUGH_MONEY:
+                vendingState = VendingState.IDLE;
                 state = "PRICE " + format(inventory.getPrice());
+                break;
+            case PURCHASE:
+                vendingState = VendingState.IDLE;
+                state = "THANK YOU";
                 break;
         }
         return state;
@@ -36,7 +41,9 @@ public class Manager {
         inventory.setProduct(product);
         int sum = coinManager.currentSum();
         int price = inventory.getPrice();
-        if (price > sum) vendingState = VendingState.NOT_ENOUGH_MONEY;
+        if (sum >= price) {
+            vendingState = VendingState.PURCHASE;
+        } else vendingState = VendingState.NOT_ENOUGH_MONEY;
     }
 
     private String format(int sum) {
