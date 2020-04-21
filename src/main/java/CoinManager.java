@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +44,10 @@ public class CoinManager {
         coinReturn.put(coin, coinReturn.getOrDefault(coin, 0) + 1);
     }
 
+    public int inReturn(Coin coin) {
+        return coinReturn.getOrDefault(coin, 0);
+    }
+
     public void makeChange(int productPrice) {
         List<Coin> orderedCoins = new ArrayList<>();
         orderedCoins.add(Coin.QUARTER);
@@ -59,7 +63,7 @@ public class CoinManager {
         coinsHolding.clear();
     }
 
-    public Map<Coin, Integer> getCoinReturn() {
-        return coinReturn;
+    void returnMoney() {
+        coinReturn = coinsHolding;
     }
 }

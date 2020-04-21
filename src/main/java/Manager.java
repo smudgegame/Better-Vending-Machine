@@ -1,13 +1,9 @@
-import java.util.Map;
-
 public class Manager {
 
     private static CoinManager coinManager;
     private static Inventory inventory;
     private static VendingState vendingState = VendingState.IDLE;
     public Product dispensedProduct = null;
-    public Map<Coin, Integer> coinReturn;
-
 
     public Manager(CoinManager coinManager, Inventory inventory, VendingState vendingState) {
         Manager.coinManager = coinManager;
@@ -50,8 +46,11 @@ public class Manager {
             dispensedProduct = product;
             vendingState = VendingState.PURCHASE;
             coinManager.makeChange(price);
-            coinReturn = coinManager.getCoinReturn();
         } else vendingState = VendingState.NOT_ENOUGH_MONEY;
+    }
+
+    public void reset() {
+        coinManager.returnMoney();
     }
 
     private String format(int sum) {
@@ -61,5 +60,6 @@ public class Manager {
             return "$" + (double) sum / 100;
         }
     }
+
 
 }

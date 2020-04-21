@@ -112,11 +112,30 @@ public class ManagerTest {
         Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
         for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
         manager.selectProduct(Product.COLA);
-        int quarters = manager.coinReturn.get(Coin.QUARTER);
+        int quarters = coinManager.inReturn(Coin.QUARTER);
         assertEquals(1, quarters);
         manager.display();
         manager.display();
         manager.selectProduct(Product.COLA);
         assertEquals("PRICE $1.00", manager.display());
     }
+
+    @Test
+    public void returnMoney() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
+
+        Map<Product, Integer> priceMap = new HashMap<>();
+        Inventory inventory = new Inventory(null, priceMap);
+
+        Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
+        for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
+        manager.reset();
+        int quarters = coinManager.inReturn(Coin.QUARTER);
+        assertEquals(5, quarters);
+    }
+
+    //TODO need to find a way to reset coinsHolding after return.
 }
