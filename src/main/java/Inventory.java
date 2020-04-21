@@ -4,7 +4,7 @@ public class Inventory {
 
     private Product product;
     private Map<Product, Integer> priceMap;
-    public Map<Product, Integer> currentStock;
+    private Map<Product, Integer> currentStock;
 
     public Inventory(Product product, Map<Product, Integer> priceMap, Map<Product, Integer> currentStock) {
         this.product = product;
@@ -25,6 +25,10 @@ public class Inventory {
 
     public void stock(Product product, int amount) {
         currentStock.put(product, currentStock.getOrDefault(product, 0) + 1);
+    }
+
+    public boolean inStock(Product product) {
+        return currentStock.getOrDefault(product,0) != 0;
     }
 
     public void remove(Product product) {
