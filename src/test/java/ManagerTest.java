@@ -99,5 +99,24 @@ public class ManagerTest {
         assertEquals(Product.COLA, manager.dispensedProduct);
     }
 
+    @Test
+    public void changeValueToZero() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
 
+        Map<Product, Integer> priceMap = new HashMap<>();
+        Inventory inventory = new Inventory(null, priceMap);
+
+        Manager manager = new Manager(coinManager, inventory, VendingState.IDLE);
+        for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
+        manager.selectProduct(Product.COLA);
+        int quarters = manager.coinReturn.get(Coin.QUARTER);
+        assertEquals(1, quarters);
+        manager.display();
+        manager.display();
+        manager.selectProduct(Product.COLA);
+        assertEquals("PRICE $1.00", manager.display());
+    }
 }

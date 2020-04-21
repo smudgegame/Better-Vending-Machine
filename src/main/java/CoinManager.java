@@ -56,5 +56,10 @@ public class CoinManager {
                 toReturn(coin);
             }
         }
+        coinsHolding.clear();
+    }
+
+    public Map<Coin, Integer> getCoinReturn() {
+        return coinReturn;
     }
 }
