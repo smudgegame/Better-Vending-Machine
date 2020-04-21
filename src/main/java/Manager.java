@@ -4,11 +4,14 @@ public class Manager {
     private static Inventory inventory;
     private static VendingState vendingState = VendingState.VENDING;
     public Product dispensedProduct = null;
+    private static boolean exactChange;
 
-    public Manager(CoinManager coinManager, Inventory inventory, VendingState vendingState) {
+    public Manager(CoinManager coinManager, Inventory inventory, VendingState vendingState, boolean exactChange) {
         Manager.coinManager = coinManager;
         Manager.inventory = inventory;
         Manager.vendingState = vendingState;
+        Manager.exactChange = exactChange;
+        vendingStateToDefault();
     }
 
     public String display() {
@@ -20,17 +23,20 @@ public class Manager {
                 else state = format(sum);
                 break;
             case NOT_ENOUGH_MONEY:
-                vendingState = VendingState.VENDING;
+                vendingStateToDefault();
                 state = "PRICE " + format(inventory.getPrice());
                 break;
             case PURCHASE:
-                vendingState = VendingState.VENDING;
+                vendingStateToDefault();
                 state = "THANK YOU";
                 break;
             case SOLD_OUT:
-                vendingState = VendingState.VENDING;
+                vendingStateToDefault();
                 state = "SOLD OUT";
                 break;
+            case EXACT_CHANGE_ONLY:
+                if (sum == 0) state = "EXACT CHANGE ONLY";
+                else state = format(sum);
         }
         return state;
     }
@@ -50,7 +56,7 @@ public class Manager {
                 vendingState = VendingState.PURCHASE;
                 coinManager.makeChange(price);
             } else vendingState = VendingState.NOT_ENOUGH_MONEY;
-        }else  vendingState = VendingState.SOLD_OUT;
+        } else vendingState = VendingState.SOLD_OUT;
     }
 
     public void reset() {
@@ -62,6 +68,14 @@ public class Manager {
             return "$" + (double) sum / 100 + "0";
         } else {
             return "$" + (double) sum / 100;
+        }
+    }
+
+    private void vendingStateToDefault() {
+        if (exactChange) {
+            vendingState = VendingState.EXACT_CHANGE_ONLY;
+        } else {
+            vendingState = VendingState.VENDING;
         }
     }
 

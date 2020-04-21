@@ -18,7 +18,7 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         assertEquals("INSERT COIN", manager.display());
     }
 
@@ -33,7 +33,7 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         manager.insertCoin(Coin.QUARTER);
         assertEquals("$0.25", manager.display());
     }
@@ -49,7 +49,7 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         manager.insertCoin(Coin.DIME);
         assertEquals("$0.10", manager.display());
     }
@@ -65,8 +65,8 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
-        inventory.stock(Product.COLA,1);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
+        inventory.stock(Product.COLA, 1);
         manager.selectProduct(Product.COLA);
         assertEquals("PRICE $1.00", manager.display());
     }
@@ -82,9 +82,9 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         for (int i = 0; i < 4; i++) manager.insertCoin(Coin.QUARTER);
-        inventory.stock(Product.COLA,1);
+        inventory.stock(Product.COLA, 1);
         manager.selectProduct(Product.COLA);
         assertEquals("THANK YOU", manager.display());
         assertEquals("INSERT COIN", manager.display());
@@ -101,9 +101,9 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         for (int i = 0; i < 4; i++) manager.insertCoin(Coin.QUARTER);
-        inventory.stock(Product.COLA,1);
+        inventory.stock(Product.COLA, 1);
         manager.selectProduct(Product.COLA);
         assertEquals(Product.COLA, manager.dispensedProduct);
     }
@@ -119,9 +119,9 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
-        inventory.stock(Product.COLA,1);
+        inventory.stock(Product.COLA, 1);
         manager.selectProduct(Product.COLA);
         int quarters = coinManager.inReturn(Coin.QUARTER);
         assertEquals(1, quarters);
@@ -142,7 +142,7 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
         manager.reset();
         int quarters = coinManager.inReturn(Coin.QUARTER);
@@ -161,10 +161,25 @@ public class ManagerTest {
         Map<Product, Integer> priceMap = new HashMap<>();
         Inventory inventory = new Inventory(null, priceMap, stock);
 
-        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING);
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, false);
         for (int i = 0; i < 5; i++) manager.insertCoin(Coin.QUARTER);
         manager.selectProduct(Product.COLA);
         assertEquals("SOLD OUT", manager.display());
         assertEquals("$1.25", manager.display());
+    }
+
+    @Test
+    public void exactChange() {
+        Map<Coin, Integer> valueMap = new HashMap<>();
+        Map<Coin, Integer> coinsHolding = new HashMap<>();
+        Map<Coin, Integer> coinReturn = new HashMap<>();
+        CoinManager coinManager = new CoinManager(valueMap, coinsHolding, coinReturn);
+
+        Map<Product, Integer> stock = new HashMap<>();
+        Map<Product, Integer> priceMap = new HashMap<>();
+        Inventory inventory = new Inventory(null, priceMap, stock);
+
+        Manager manager = new Manager(coinManager, inventory, VendingState.VENDING, true);
+        assertEquals("EXACT CHANGE ONLY", manager.display());
     }
 }
