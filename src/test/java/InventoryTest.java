@@ -1,4 +1,5 @@
 import org.junit.Test;
+import sun.security.krb5.internal.crypto.EType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,4 +15,5 @@ public class InventoryTest {
         inventory.setProduct(Product.COLA);
         assertEquals(100, inventory.getPrice());
     }
+
 }

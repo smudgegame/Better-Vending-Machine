@@ -3,6 +3,7 @@ public class Manager {
     private static CoinManager coinManager;
     private static Inventory inventory;
     private static VendingState vendingState = VendingState.IDLE;
+    public Product dispensedProduct = null;
 
     public Manager(CoinManager coinManager, Inventory inventory, VendingState vendingState) {
         Manager.coinManager = coinManager;
@@ -42,6 +43,7 @@ public class Manager {
         int sum = coinManager.currentSum();
         int price = inventory.getPrice();
         if (sum >= price) {
+            dispensedProduct = product;
             vendingState = VendingState.PURCHASE;
         } else vendingState = VendingState.NOT_ENOUGH_MONEY;
     }
