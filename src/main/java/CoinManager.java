@@ -65,5 +65,6 @@ public class CoinManager {
 
     void returnMoney() {
         coinReturn = coinsHolding;
+        coinsHolding = new HashMap<>();
     }
 }

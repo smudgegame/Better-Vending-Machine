@@ -148,7 +148,6 @@ public class ManagerTest {
         int quarters = coinManager.inReturn(Coin.QUARTER);
         assertEquals(5, quarters);
     }
-    //TODO need to find a way to reset coinsHolding after return.
 
     @Test
     public void soldOut() {
@@ -199,7 +198,6 @@ public class ManagerTest {
         inventory.stock(Product.COLA, 1);
         manager.selectProduct(Product.COLA);
         assertEquals("NOT EXACTLY $1.00", manager.display());
-        manager.reset();
         manager.insertCoin(Coin.QUARTER);
         manager.selectProduct(Product.COLA);
         assertEquals("THANK YOU", manager.display());
