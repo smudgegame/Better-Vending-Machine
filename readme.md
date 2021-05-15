@@ -1,6 +1,8 @@
 Vending Machine Kata
 ====================
 
+[![Build and Test](https://github.com/smudgegame/Better-Vending-Machine/actions/workflows/build.yml/badge.svg)](https://github.com/smudgegame/Better-Vending-Machine/actions/workflows/build.yml)
+
 In this exercise you will build the brains of a vending machine.  It will accept money, make change, maintain
 inventory, and dispense products.  All the things that you might expect a vending machine to accomplish.
 
