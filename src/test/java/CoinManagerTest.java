@@ -89,6 +89,5 @@ public class CoinManagerTest {
         assertEquals(1, dimes);
         assertEquals(1, nickels);
         assertEquals(1, quarters);
-        assertEquals(true,false);
     }
 }
